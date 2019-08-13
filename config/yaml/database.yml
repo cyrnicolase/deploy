@@ -1,0 +1,28 @@
+# 数据库具体连接配置
+
+development:
+  dialect: postgres
+  host: 127.0.0.1
+  port: 5432
+  user: opmp
+  database: opmp
+  password: 123456
+  sslmode: disable
+
+testing:
+  dialect: postgres
+  host: 192.168.0.11
+  port: 5432
+  user: opmp
+  database: opmp
+  password: abc123
+  sslmode: disable
+
+production:
+  dialect: postgres
+  host: 10.0.0.1
+  port: 5432
+  user: opmp
+  database: opmp
+  password: hook@761&%ass,11
+  sslmode: disable

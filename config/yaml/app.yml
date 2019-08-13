@@ -1,0 +1,15 @@
+# 使用Yaml文件作为配置文件
+
+app_name: 一个应用名
+
+version: 0.0.1
+
+# 日期格式
+date_format: 2006-01-02 15:04:05
+
+# 运行模式
+# 跟进运行环境进行配置
+# 开发环境： development
+# 测试环境： testing
+# 生产环境： production
+run_mode: development
