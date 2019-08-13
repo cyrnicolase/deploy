@@ -32,12 +32,7 @@ func (user *User) Insert() (affected int64, err error) {
 // BeforeInsert function
 func (user *User) BeforeInsert() {
 	user.Model.BeforeInsert()
-
-	rand.Seed(time.Now().UnixNano())
-	user.Salt = strconv.Itoa(int(rand.Int31()))
-
-	fmt.Printf("Password: %s, salt: %s\n", user.Passwd, user.Salt)
-	user.Password = fmt.Sprintf("%x", md5.Sum([]byte(user.Passwd+user.Salt)))
+	generatePassword(user)
 }
 
 // GetAllUsers return set of User
@@ -48,4 +43,11 @@ func GetAllUsers() (users []User, err error) {
 	}
 
 	return users, nil
+}
+
+func generatePassword(user *User) {
+	rand.Seed(time.Now().UnixNano())
+	user.Salt = strconv.Itoa(int(rand.Int31()))
+
+	user.Password = fmt.Sprintf("%x", md5.Sum([]byte(user.Passwd+user.Salt)))
 }
