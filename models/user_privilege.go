@@ -26,7 +26,7 @@ func (up *UserPrivilege) Delete() (affected int64, err error) {
 // DeleteByID 按照用户权限id删除数据
 func DeleteByID(id string) (affected int64, err error) {
 	up := new(UserPrivilege)
-	return x.Where("id = ?", id).Delete(up)
+	return x.Where("id = ?", id).Delete(up) // 这里用Where，而不是用Id()；我理解是因为extends 引起的pk重复；导致出问题
 }
 
 // UserPrivilegesByUserID 返回根据userID查询的用户所有权限
