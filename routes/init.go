@@ -22,6 +22,10 @@ func Boot() *gin.Engine {
 		{
 			usersRouter.GET("/users", users.GetUsers)
 			usersRouter.POST("/users", users.PostUsers)
+
+			usersRouter.POST("/privileges", users.PostUserPrivileges)
+			usersRouter.GET("/privileges", users.GetUserPrivileges)
+			usersRouter.DELETE("/privileges/:id", users.DeleteUserPrivilege)
 		}
 	}
 

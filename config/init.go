@@ -18,6 +18,7 @@ func init() {
 func Boot() {
 	unmarshalApp()
 	unmarshalDatabases()
+	unmarshalPrivileges()
 }
 
 // SetConfigPath is reset config files path
