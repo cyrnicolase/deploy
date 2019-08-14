@@ -14,7 +14,7 @@ func GetUserPrivileges(c *gin.Context) {
 	result := make([]map[string]string, 0)
 	for _, v := range userPrivileges {
 		row := make(map[string]string)
-		row["id"] = v.ID
+		row["id"] = v.UserPrivilege.ID
 		row["username"] = v.Username
 		row["user_id"] = v.User.ID
 		row["privilege"] = v.Privilege

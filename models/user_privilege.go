@@ -4,7 +4,6 @@ package models
 type UserPrivilege struct {
 	Model     `xorm:"extends"`
 	Userid    string `json:"user_id" xorm:"notnull user_id"`
-	User      `xorm:"extends"`
 	Privilege string `json:"privilege" xorm:"notnull"`
 }
 
@@ -29,9 +28,20 @@ func DeleteByID(id string) (affected int64, err error) {
 	return x.Where("id = ?", id).Delete(up) // 这里用Where，而不是用Id()；我理解是因为extends 引起的pk重复；导致出问题
 }
 
+// UserPrivilegeSet 用户权限集合
+type UserPrivilegeSet struct {
+	UserPrivilege `xorm:"extends"`
+	User          `xorm:"extends"`
+}
+
+// TableName 返回复合结构体 UserPrivilegeSet 对应的表
+func (UserPrivilegeSet) TableName() string {
+	return "users.user_privileges"
+}
+
 // UserPrivilegesByUserID 返回根据userID查询的用户所有权限
-func UserPrivilegesByUserID(userID string) []UserPrivilege {
-	userPrivileges := make([]UserPrivilege, 0)
+func UserPrivilegesByUserID(userID string) []UserPrivilegeSet {
+	userPrivileges := make([]UserPrivilegeSet, 0)
 	x.Join("INNER", "users.users", "users.users.id = users.user_privileges.user_id").
 		Where("users.user_privileges.user_id = ?", userID).
 		Find(&userPrivileges)

@@ -3,6 +3,7 @@ module deploy
 go 1.12
 
 require (
+	github.com/appleboy/gin-jwt/v2 v2.6.2
 	github.com/gin-gonic/gin v1.4.0
 	github.com/go-xorm/xorm v0.7.6
 	github.com/karrick/godirwalk v1.10.12 // indirect
