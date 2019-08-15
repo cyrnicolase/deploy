@@ -38,7 +38,7 @@ func PostUserPrivileges(c *gin.Context) {
 	if !has {
 		affect, err = userPrivilege.Insert()
 	} else {
-		result, _ := userPrivilege.UnDelete()
+		result, _ := userPrivilege.Restore()
 		affect, _ = result.RowsAffected()
 	}
 

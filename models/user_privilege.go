@@ -15,32 +15,32 @@ func (UserPrivilege) TableName() string {
 }
 
 // Insert 新增
-func (up *UserPrivilege) Insert() (affected int64, err error) {
+func (up *UserPrivilege) Insert() (int64, error) {
 	return x.Insert(up)
 }
 
 // Delete 删除
-func (up *UserPrivilege) Delete() (affected int64, err error) {
+func (up *UserPrivilege) Delete() (int64, error) {
 	return x.Delete(&up)
 }
 
-// UnDelete 取消删除
-func (up *UserPrivilege) UnDelete() (sql.Result, error) {
+// Restore 取消删除
+func (up *UserPrivilege) Restore() (sql.Result, error) {
 	return x.Exec("UPDATE users.user_privileges SET deleted_at = null WHERE id = ?", up.ID)
 }
 
 // UnscopedExist 判断用户权限记录是否存在;(考虑被删除的情况)
-func (up *UserPrivilege) UnscopedExist() (has bool, err error) {
+func (up *UserPrivilege) UnscopedExist() (bool, error) {
 	return x.Unscoped().Exist(up)
 }
 
 // UnscopedGet 跟进对象已有数据信息查询
-func (up *UserPrivilege) UnscopedGet() (has bool, err error) {
+func (up *UserPrivilege) UnscopedGet() (bool, error) {
 	return x.Unscoped().Get(up)
 }
 
 // DeleteByID 按照用户权限id删除数据
-func DeleteByID(id string) (affected int64, err error) {
+func DeleteByID(id string) (int64, error) {
 	up := new(UserPrivilege)
 	return x.Where("id = ?", id).Delete(up) // 这里用Where，而不是用Id()；我理解是因为extends 引起的pk重复；导致出问题
 }

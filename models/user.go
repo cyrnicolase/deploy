@@ -26,12 +26,12 @@ func (User) TableName() string {
 }
 
 // Insert create a new record and insert into database
-func (user *User) Insert() (affected int64, err error) {
+func (user *User) Insert() (int64, error) {
 	return x.Insert(user)
 }
 
 // Exist 判断用户是否存在
-func (user *User) Exist() (has bool, err error) {
+func (user *User) Exist() (bool, error) {
 	return x.Exist(user)
 }
 
