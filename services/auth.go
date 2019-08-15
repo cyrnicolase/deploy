@@ -71,8 +71,10 @@ var PayloadFunc = func(data interface{}) jwt.MapClaims {
 // IdentityHandler 解析认证结果放到IdentityKey 上
 var IdentityHandler = func(c *gin.Context) interface{} {
 	claims := jwt.ExtractClaims(c)
+	userid := claims[IdentityKey].(string)
+	user, _ := models.GetUserByID(userid)
 
-	return claims[IdentityKey].(string)
+	return user
 }
 
 // Authorizator 授权，登录成功后，判断用户是否有权限访问

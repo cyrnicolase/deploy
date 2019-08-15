@@ -18,6 +18,7 @@ func Boot() *gin.Engine {
 	v1 := router.Group("/api/v1")
 	v1.Use(services.AuthMiddleware.MiddlewareFunc())
 	{
+
 		metaRouter := v1.Group("/meta")
 		{
 			metaRouter.GET("/ping", meta.GetPing)
@@ -25,6 +26,8 @@ func Boot() *gin.Engine {
 
 		usersRouter := v1.Group("/users")
 		{
+			usersRouter.POST("/password", users.ModifyPassword)
+
 			usersRouter.GET("/users", mwAuthPrivilege("查看用户"), users.GetUsers)
 			usersRouter.POST("/users", mwAuthPrivilege("新增用户"), users.PostUsers)
 

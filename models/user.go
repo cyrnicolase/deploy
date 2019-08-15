@@ -47,6 +47,13 @@ func (user *User) IsPasswordRight(passwd string) bool {
 	return user.Password == calculatePassword(passwd, user.Salt)
 }
 
+// ResetPassword 重置密码
+func (user *User) ResetPassword(password string) (int64, error) {
+	user.Salt = generatePasswordSalt()
+	user.Password = calculatePassword(password, user.Salt)
+	return x.Id(user.ID).Update(user)
+}
+
 // GetAllUsers return set of User
 func GetAllUsers() (users []User, err error) {
 	err = x.Find(&users)

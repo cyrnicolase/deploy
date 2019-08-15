@@ -2,6 +2,7 @@ package users
 
 import (
 	"deploy/models"
+	"deploy/services"
 	"fmt"
 
 	"github.com/gin-gonic/gin"
@@ -34,4 +35,19 @@ func PostUsers(c *gin.Context) {
 	}
 
 	c.String(200, fmt.Sprintf("新增用户操作成功，影响行数: %d", affected))
+}
+
+// ModifyPassword 修改登录用户密码
+func ModifyPassword(c *gin.Context) {
+	user, _ := c.Get(services.IdentityKey)
+	passwd := c.PostForm("password")
+
+	_, err := user.(*models.User).ResetPassword(passwd)
+	if nil != err {
+		c.String(500, fmt.Sprintf("更新用户密码错误:%v", err))
+		return
+	}
+
+	c.String(200, "更新用户密码成功")
+	return
 }
