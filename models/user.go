@@ -12,11 +12,12 @@ import (
 type User struct {
 	Model    `xorm:"extends"`
 	Username string `json:"username" xorm:"notnull"`
-	Passwd   string `json:"passwd" xorm:"-"`
+	Passwd   string `json:"passwd" xorm:"-"` // 引入一个冗余字段，不写入数据库；目的是进行Json bind 使用
 	Password string `json:"-" xorm:"notnull"`
 	Salt     string `json:"-" xorm:"notnull"`
 	Email    string `json:"email" xorm:"notnull"`
 	Phone    string `json:"phone" xorm:"notnull"`
+	IsSuper  bool   `json:"-" xorm:"notnull <-"` // 只从数据库读，不写
 }
 
 // TableName return struct database table name
@@ -27,6 +28,11 @@ func (User) TableName() string {
 // Insert create a new record and insert into database
 func (user *User) Insert() (affected int64, err error) {
 	return x.Insert(user)
+}
+
+// Exist 判断用户是否存在
+func (user *User) Exist() (has bool, err error) {
+	return x.Exist(user)
 }
 
 // BeforeInsert function

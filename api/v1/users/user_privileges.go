@@ -25,7 +25,7 @@ func GetUserPrivileges(c *gin.Context) {
 	c.JSON(200, result)
 }
 
-// PostUserPrivileges 新增用户权限
+// PostUserPrivileges 新增/修改用户权限
 func PostUserPrivileges(c *gin.Context) {
 	var userPrivilege models.UserPrivilege
 	if err := c.ShouldBind(&userPrivilege); nil != err {
@@ -33,7 +33,15 @@ func PostUserPrivileges(c *gin.Context) {
 		return
 	}
 
-	affect, err := userPrivilege.Insert()
+	var affect int64
+	has, err := userPrivilege.UnscopedGet()
+	if !has {
+		affect, err = userPrivilege.Insert()
+	} else {
+		result, _ := userPrivilege.UnDelete()
+		affect, _ = result.RowsAffected()
+	}
+
 	if nil != err {
 		c.String(500, "新增用户权限操作失败:"+err.Error())
 		return

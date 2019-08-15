@@ -16,10 +16,15 @@ func mwAuthPrivilege(privilege string) gin.HandlerFunc {
 			return
 		}
 
+		user, _ := models.GetUserByID(userid.(string))
+		if user.IsSuper {
+			return // 如果是超级管理员，那么不用进行权限验证
+		}
+
 		userPrivilegs := models.UserPrivilegesByUserID(userid.(string))
 		for _, up := range userPrivilegs {
 			if privilege == up.Privilege {
-				return
+				return // 如果权限正确，可以访问
 			}
 		}
 
