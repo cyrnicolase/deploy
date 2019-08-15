@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func midAuthPrivilege(privilege string) gin.HandlerFunc {
+func mwAuthPrivilege(privilege string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		userid, ok := c.Get(services.IdentityKey)
 		if !ok {

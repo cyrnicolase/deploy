@@ -1,7 +1,7 @@
 # 使用Yaml文件作为配置文件
 
 app_name: 一个应用名
-
+app_key: base64:mIIRo13uoF/m0Oze81WmlLLQxzGcMZVL+Gr0qSKhivc=
 version: 0.0.1
 
 # 日期格式
@@ -13,4 +13,8 @@ date_format: 2006-01-02 15:04:05
 # 测试环境： testing
 # 生产环境： production
 run_mode: development
+
+jwt:
+  timeout: 120    # Jwt过期时间（分钟）
+  refresh: 120    # Jwt最大刷新有效期（分钟）
 

@@ -1,6 +1,7 @@
 package services
 
 import (
+	"deploy/config"
 	"deploy/models"
 	"time"
 
@@ -9,7 +10,7 @@ import (
 )
 
 // IdentityKey 认证绑定Key; models.User.ID
-var IdentityKey = "Authorizationid"
+var IdentityKey = "user_id"
 
 type login struct {
 	Username string `form:"username"`
@@ -19,9 +20,9 @@ type login struct {
 // AuthMiddleware Jwt授权认证中间件结构体
 var AuthMiddleware, err = jwt.New(&jwt.GinJWTMiddleware{
 	Realm:           "Authentication",
-	Key:             []byte("Hello"), // 秘钥（从配置文件获取）
-	Timeout:         time.Hour,
-	MaxRefresh:      time.Hour,
+	Key:             []byte(config.App.AppKey), // 秘钥（从配置文件获取）
+	Timeout:         time.Duration(config.App.Jwt.Timeout) * time.Minute,
+	MaxRefresh:      time.Duration(config.App.Jwt.Refresh) * time.Minute,
 	IdentityKey:     IdentityKey,
 	IdentityHandler: IdentityHandler,
 	Authenticator:   Authenticator,
