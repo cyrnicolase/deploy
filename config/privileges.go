@@ -2,7 +2,7 @@ package config
 
 // PrivilegeConfigs struct
 type PrivilegeConfigs struct {
-	Users []string
+	Users []string `json:"user"`
 }
 
 // Privileges is all privileges

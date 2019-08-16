@@ -1,6 +1,7 @@
 package users
 
 import (
+	"deploy/config"
 	"deploy/models"
 	"fmt"
 
@@ -62,4 +63,11 @@ func DeleteUserPrivilege(c *gin.Context) {
 	}
 
 	c.String(200, fmt.Sprintf("删除用户权限操作成功,删除记录数:%d", affected))
+}
+
+// GetAllPrivileges 获取所有权限列表
+func GetAllPrivileges(c *gin.Context) {
+	privileges := config.Privileges
+
+	c.JSON(200, privileges)
 }
