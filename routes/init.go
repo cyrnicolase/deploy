@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"deploy/api/v1/meta"
+	"deploy/api/v1/project"
 	"deploy/api/v1/users"
 	"deploy/services"
 )
@@ -35,6 +36,14 @@ func Boot() *gin.Engine {
 			usersRouter.POST("/privileges", mwAuthPrivilege("关联用户权限"), users.PostUserPrivileges)
 			usersRouter.GET("/privileges", mwAuthPrivilege("查看用户权限"), users.GetUserPrivileges)
 			usersRouter.DELETE("/privileges/:id", mwAuthPrivilege("删除用户权限"), users.DeleteUserPrivilege)
+		}
+
+		projectRouter := v1.Group("/project")
+		{
+			projectRouter.GET("/projects", mwAuthPrivilege("查看项目列表"), project.Projects)
+			projectRouter.POST("/projects", mwAuthPrivilege("新增项目"), project.PostProject)
+			projectRouter.PUT("/projects/:id", mwAuthPrivilege("修改项目"), project.PutProject)
+			projectRouter.DELETE("/projects/:id", mwAuthPrivilege("删除项目"), project.DeleteProject)
 		}
 	}
 
