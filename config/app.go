@@ -8,12 +8,21 @@ type AppConfig struct {
 	DateFormat string `mapstructure:"date_format"`
 	RunMode    string `mapstructure:"run_mode"`
 	Jwt        JwtConfig
+	Log        LogConfig
 }
 
 // JwtConfig 是JwtToken相关配置
 type JwtConfig struct {
 	Timeout int `mapstructure:"timeout"`
 	Refresh int `mapstructure:"refresh"`
+}
+
+// LogConfig 是日志相关配置
+type LogConfig struct {
+	Path string
+	Name string
+	Level int32
+	Mode string
 }
 
 // App 是AppConfig的具体对象

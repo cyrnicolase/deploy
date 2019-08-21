@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -10,10 +9,12 @@ import (
 	"time"
 
 	"deploy/config"
+	"deploy/logger"
 	"deploy/models"
 	"deploy/routes"
 
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 )
 
 func main() {
@@ -22,6 +23,7 @@ func main() {
 		Addr:    ":8080",
 		Handler: router,
 	}
+
 	go func() {
 		if err := srv.ListenAndServe(); nil != err && http.ErrServerClosed != err {
 			log.Fatalf("listen: %s\n", err)
@@ -48,6 +50,7 @@ func bootstrap() (router *gin.Engine) {
 
 	config.Boot()
 	models.Boot()
+	logger.Boot()
 	if "production" == config.App.RunMode {
 		gin.SetMode(gin.ReleaseMode)
 	}

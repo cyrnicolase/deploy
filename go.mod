@@ -10,6 +10,7 @@ require (
 	github.com/lib/pq v1.0.0
 	github.com/rubenv/sql-migrate v0.0.0-20190717103323-87ce952f7079
 	github.com/satori/go.uuid v1.2.0
+	github.com/sirupsen/logrus v1.2.0
 	github.com/spf13/viper v1.4.0
 	github.com/uudashr/gopkgs v2.0.1+incompatible // indirect
 	gopkg.in/gorp.v1 v1.7.2 // indirect
