@@ -44,6 +44,9 @@ func Boot() *gin.Engine {
 			projectRouter.POST("/projects", mwAuthPrivilege("新增项目"), project.PostProject)
 			projectRouter.PUT("/projects/:id", mwAuthPrivilege("修改项目"), project.PutProject)
 			projectRouter.DELETE("/projects/:id", mwAuthPrivilege("删除项目"), project.DeleteProject)
+
+			projectRouter.POST("/servers", mwAuthPrivilege("新增服务器"), project.PostServer)
+			projectRouter.PUT("/servers/:id", mwAuthPrivilege("修改服务器"), project.PutServer)
 		}
 	}
 

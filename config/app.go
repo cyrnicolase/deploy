@@ -19,10 +19,10 @@ type JwtConfig struct {
 
 // LogConfig 是日志相关配置
 type LogConfig struct {
-	Path string
-	Name string
-	Level int32
-	Mode string
+	Path  string
+	Name  string
+	Level uint32
+	Mode  string
 }
 
 // App 是AppConfig的具体对象
